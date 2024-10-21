@@ -51,7 +51,7 @@ bnfCeLevels = bnf_ce_df['ce_level'].loc[bnf_ce_df.index[1]]
 bnfPeLevels = bnf_pe_df['pe_level'].loc[bnf_pe_df.index[1]]
 
 #Notify Index values To Telegram Channel before 9AM
-if(intTime>9):
+if(intTime>9 and intSec<30):
     t_url = "https://api.telegram.org/bot6377307246:AAEuJAlBiQgDQEa03yNmKQJmZbXyQ0WINOk/sendMessage?chat_id=-996001230&text="+"======================\n"+nowTime+"\n======================"+"\nWELCOME TO MAGIC AI BOT TRADING"+"\n======================"+"\nMAGIC LEVEL BOT STARTED SUCCESSFULLY..!"+"\n======================\n"+"TODAY's MAGIC LEVELS\n"+"======================\n"+"NIFTY MAGIC LEVEL: "+str(nseCeLevels)+"\n"+"=========================\n"+str(nsePeLevels)+"\n"+"=========================\n"+"BNF BO LEVEL: "+str(bnfCeLevels)+"\n=========================\n"+str(bnfPeLevels)+"\n"+"=========================\n"+"NOTE : ONLY FOR EDUCATIONAL PURPOSE."+"\n----------------------------------------------"+"\nI AM NOT SEBI REG..!"+"\n----------------------------------------------"+"\nTRADE AT YOUR OWN RISK..!"+"\n----------------------------------------------\n"+"WISH YOU PROFITABLE DAY..!"
     requests.post(t_url) 
 
@@ -59,9 +59,9 @@ c = datetime.now()
 runTm = c.strftime('%H:%M:%S')
 
 #Keep Running below code from 9AM to 3PM
-if intTime >= 9 and intTime <= 23:
-    while(intTime<=23 ):
-        if intTime>23:
+if intTime >= 9 and intTime <= 15:
+    while(intTime<=15 ):
+        if intTime>14:
             break
         c = datetime.now(tz=pytz.timezone('Asia/Kolkata'))
         runTime = c.strftime('%H:%M:%S')
