@@ -30,7 +30,7 @@ def fetch_nifty_cmp():
     data = yf.download("^NSEI", period="1d", interval="1m")
     if data.empty:
         return None
-    cmp = data['Close'].iloc[-1]
+    cmp = float(data['Close'].iloc[-1]) 
     return round(cmp, 2)
 
 # Send Telegram message
@@ -43,15 +43,18 @@ def notify_telegram(message):
 # Notify startup before 9:30 AM
 if intTime == 9 and intSec < 30:
     notify_telegram(
+        f"========================\n"
         f"🟢 BOT STARTED\n\n📅 {nowTime}\n"
         f"NIFTY CE Level: {nseCeLevels}\n"
         f"NIFTY PE Level: {nsePeLevels}\n"
-        "⚠️ For Educational Use Only"
+        f"⚠️ For Educational Use Only\n"
+        f"========================\n"
+
     )
 
 # Run check loop from 9:15 to 15:30
-if 9 <= intTime <= 20:
-    while intTime <= 20:
+if 9 <= intTime <= 15:
+    while intTime <= 15:
         c = datetime.now(IST)
         runTime = c.strftime('%H:%M:%S')
         intTime = int(c.strftime('%H'))
@@ -68,15 +71,15 @@ if 9 <= intTime <= 20:
 
         if cmp > nseCeLevels:
             notify_telegram(
-                f"📈 NIFTY CE BREAKOUT\n\n🕒 {runTime}\nCMP: {cmp}\nBreakout above: {nseCeLevels}\nStrike: {strike} CE"
+                f"==============\n\n📈 NIFTY CE BREAKOUT\n\n🕒 {runTime}\nCMP: {cmp}\nBreakout above: {nseCeLevels}\nStrike: {strike} CE\n\n ===============\n\n"
             )
 
         if cmp < nsePeLevels:
             notify_telegram(
-                f"📉 NIFTY PE BREAKDOWN\n\n🕒 {runTime}\nCMP: {cmp}\nBreakdown below: {nsePeLevels}\nStrike: {strike} PE"
+                f"===============\n\n📉 NIFTY PE BREAKDOWN\n\n🕒 {runTime}\nCMP: {cmp}\nBreakdown below: {nsePeLevels}\nStrike: {strike} PE\n\n ================\n\n"
             )
 
-        time.sleep(180)
+        time.sleep(300)
 
 else:
     print(f"⏳ Market closed or outside hours at {runTm}")
