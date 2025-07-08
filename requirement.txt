@@ -1,0 +1,7 @@
+requests
+json
+datetime
+pytz
+pandas
+math
+yfinance
