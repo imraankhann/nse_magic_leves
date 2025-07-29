@@ -35,7 +35,7 @@ def fetch_nifty_cmp():
 
 # Send Telegram message
 def notify_telegram(message):
-    bot_token = "bot5771720913:AAH0A70f0BPtPjrOCTrhAb9LR7IGFBVt-oM"
+    bot_token = "5771720913:AAH0A70f0BPtPjrOCTrhAb9LR7IGFBVt-oM"
     chat_id = "-703180529"
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat_id}&text={message}"
     requests.post(url)
